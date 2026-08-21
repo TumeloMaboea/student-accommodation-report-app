@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  id        String   @id @default(uuid())
+  name      String
+  // not the same email
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  // user can create more reports 
+  reports Report[]
+}
+
+model Residence {
+  id      String @id @default(uuid())
+  name    String
+  address String
+
+  // residence have many rooms 
+  rooms Room[]
+}
+
+model Room {
+  id         String @id @default(uuid())
+  roomNumber Int
+
+ // relationships 
+  residence   Residence @relation(fields: [residenceId], references: [id])
+  residenceId String
+
+  // room can have many reports
+  reports Report[]
+}
+
+model Report {
+  id          String   @id @default(uuid())
+  description String
+  category    Category @default(BrokenWindow)
+  status      Status   @default(Pending)
+  createdAt   DateTime @default(now())
+
+ // relationships 
+  createdBy   Users  @relation(fields: [createdById], references: [id])
+  createdById String
+
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId String
+}
+
+enum Category {
+  BrokenWindow
+  BrokenWarDrobe
+  PlugsNotWorking
+  BulbNotWorking
+  DoorHandleNotWorking
+}
+
+enum Status {
+  Pending
+  Inprogress
+  Resolved
+}

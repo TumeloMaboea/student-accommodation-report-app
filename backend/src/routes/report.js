@@ -1,9 +1,9 @@
 
 import express from 'express';
 
-import {reportcontroller,getreport,updatereports, deletereport} from '../Controllers/reportcontroller.js'
+import {reportcontroller,getreport,updatereports, deletereport} from '../controllers/reportcontroller.js'
 import { protect } from "../middleware/usermiddleware.js";
-//import { getreport } from '../Controllers/reportcontroller.js';
+//import { getreport } from '../controllers/reportcontroller.js';
 
 
 

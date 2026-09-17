@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { residencecontroller } from '../Controllers/residencecontroller.js';
+import { residencecontroller } from '../controllers/residencecontroller.js';
 
 const routes = express.Router();
 
